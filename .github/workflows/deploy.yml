@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_OPTIONS: ""
+      npm_config_node_options: ""
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
