@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="y" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffe44d"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="p" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff79b8"/>
+      <stop offset="100%" stop-color="#ee00bb"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#7c2ff0"/>
+  <text x="7" y="31" font-family="Arial Black, Impact, sans-serif" font-weight="900" font-size="22" fill="#2d0057" opacity="0.85">LVL</text>
+  <text x="7" y="58" font-family="Arial Black, Impact, sans-serif" font-weight="900" font-size="29" fill="#2d0057" opacity="0.85">UP</text>
+  <text x="5" y="28" font-family="Arial Black, Impact, sans-serif" font-weight="900" font-size="22" fill="url(#y)">LVL</text>
+  <text x="5" y="55" font-family="Arial Black, Impact, sans-serif" font-weight="900" font-size="29" fill="url(#p)">UP</text>
+</svg>
