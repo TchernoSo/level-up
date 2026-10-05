@@ -338,6 +338,90 @@ p  { font-size: 1rem; }
   width: 100%;
 }
 
+/* ── Difficulty Selection ── */
+.difficulty-selection {
+  display: flex;
+  flex-direction: column;
+}
+
+.difficulty-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.difficulty-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  text-align: center;
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.difficulty-card:hover:not(:disabled) {
+  border-color: var(--primary-lt);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.difficulty-card:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.difficulty-card:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.difficulty-card-emoji {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.difficulty-card-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.difficulty-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.difficulty-card-count {
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-top: 0.4rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+.difficulty-card--easy .difficulty-card-count {
+  background: var(--success-lt);
+  color: var(--success);
+}
+
+.difficulty-card--medium .difficulty-card-count {
+  background: var(--warning-lt);
+  color: var(--warning);
+}
+
+.difficulty-card--hard .difficulty-card-count {
+  background: var(--wrong-lt);
+  color: var(--wrong);
+}
+
+.difficulty-card--all .difficulty-card-count {
+  background: var(--primary-lt);
+  color: var(--primary-dk);
+}
+
 /* ── Quiz Layout ── */
 .quiz-layout {
   display: flex;

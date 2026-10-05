@@ -1,5 +1,6 @@
 export type Subject = 'English' | 'Maths'
 export type Difficulty = 'easy' | 'medium' | 'hard'
+export type DifficultyChoice = Difficulty | 'all'
 
 export interface Topic {
   id: string
@@ -40,4 +41,4 @@ export interface Mistake {
   userAnswer: string
 }
 
-export type Screen = 'home' | 'quiz' | 'results' | 'mistakes'
+export type Screen = 'home' | 'difficulty' | 'quiz' | 'results' | 'mistakes'

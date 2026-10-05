@@ -1,13 +1,14 @@
 import { useState, useCallback } from 'react'
 import './styles/global.css'
 
-import type { Topic, Question, Mistake, Screen } from './types/quiz'
+import type { Topic, Question, Mistake, Screen, DifficultyChoice } from './types/quiz'
 import { topics } from './data/topics'
 import { allQuestions } from './data/questions'
 import { shuffle } from './utils/shuffle'
 
 import Header from './components/Header'
 import TopicSelection from './components/TopicSelection'
+import DifficultySelection from './components/DifficultySelection'
 import QuizCard from './components/QuizCard'
 import ResultsScreen from './components/ResultsScreen'
 import MistakeReview from './components/MistakeReview'
@@ -17,14 +18,23 @@ const QUESTIONS_PER_SESSION = 10
 export default function App() {
   const [screen, setScreen] = useState<Screen>('home')
   const [activeTopic, setActiveTopic] = useState<Topic | null>(null)
+  const [activeDifficulty, setActiveDifficulty] = useState<DifficultyChoice | null>(null)
   const [sessionQuestions, setSessionQuestions] = useState<Question[]>([])
   const [score, setScore] = useState(0)
   const [mistakes, setMistakes] = useState<Mistake[]>([])
 
-  const startQuiz = useCallback((topic: Topic) => {
-    const pool = allQuestions.filter((q) => q.topic === topic.id)
+  const chooseTopic = useCallback((topic: Topic) => {
+    setActiveTopic(topic)
+    setScreen('difficulty')
+  }, [])
+
+  const startQuiz = useCallback((topic: Topic, difficulty: DifficultyChoice) => {
+    const pool = allQuestions.filter(
+      (q) => q.topic === topic.id && (difficulty === 'all' || q.difficulty === difficulty)
+    )
     const selected = shuffle(pool).slice(0, QUESTIONS_PER_SESSION)
     setActiveTopic(topic)
+    setActiveDifficulty(difficulty)
     setSessionQuestions(selected)
     setScore(0)
     setMistakes([])
@@ -38,12 +48,13 @@ export default function App() {
   }, [])
 
   const handleTryAgain = useCallback(() => {
-    if (activeTopic) startQuiz(activeTopic)
-  }, [activeTopic, startQuiz])
+    if (activeTopic && activeDifficulty) startQuiz(activeTopic, activeDifficulty)
+  }, [activeTopic, activeDifficulty, startQuiz])
 
   const goHome = useCallback(() => {
     setScreen('home')
     setActiveTopic(null)
+    setActiveDifficulty(null)
     setSessionQuestions([])
     setScore(0)
     setMistakes([])
@@ -62,7 +73,15 @@ export default function App() {
       <main className="main-content" id="main">
         <div className="container">
           {screen === 'home' && (
-            <TopicSelection topics={topics} onStart={startQuiz} />
+            <TopicSelection topics={topics} onStart={chooseTopic} />
+          )}
+
+          {screen === 'difficulty' && activeTopic && (
+            <DifficultySelection
+              topic={activeTopic}
+              questions={allQuestions.filter((q) => q.topic === activeTopic.id)}
+              onSelect={(difficulty) => startQuiz(activeTopic, difficulty)}
+            />
           )}
 
           {screen === 'quiz' && activeTopic && sessionQuestions.length > 0 && (
