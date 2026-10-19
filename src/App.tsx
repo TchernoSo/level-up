@@ -5,6 +5,7 @@ import type { Topic, Question, Mistake, Screen, DifficultyChoice } from './types
 import { topics } from './data/topics'
 import { allQuestions } from './data/questions'
 import { shuffle } from './utils/shuffle'
+import { pickSessionQuestions } from './utils/sessionHistory'
 
 import Header from './components/Header'
 import TopicSelection from './components/TopicSelection'
@@ -32,7 +33,7 @@ export default function App() {
     const pool = allQuestions.filter(
       (q) => q.topic === topic.id && (difficulty === 'all' || q.difficulty === difficulty)
     )
-    const selected = shuffle(pool).slice(0, QUESTIONS_PER_SESSION)
+    const selected = pickSessionQuestions(pool, QUESTIONS_PER_SESSION, `${topic.id}:${difficulty}`, shuffle)
     setActiveTopic(topic)
     setActiveDifficulty(difficulty)
     setSessionQuestions(selected)
